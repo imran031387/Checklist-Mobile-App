@@ -9,7 +9,7 @@ gurdian.factory('authToken',function ($window) {
     }
 
     authTokenFactory.removeToken = function () {
-        $window.localStorage.removeItem('token')
+        $window.localStorage.removeItem('firebase:authUser:AIzaSyBeCX6qUcZuMDfEy4sg7v1rTC4UID_s2Gk:[DEFAULT]')
     }
 
     return authTokenFactory;
