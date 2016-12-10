@@ -1,0 +1,37 @@
+
+<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-assertive-900"  >
+      <ion-nav-back-button class="no-text">
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="fabContent"></ion-nav-view>
+    <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="left">
+    <ion-header-bar class="dark-bg expanded" style="background: url('./img/menu-header.png'); background-size: cover;">
+      <span class="avatar" style="background: url('./img/default-user.jpg'); background-size: cover;"></span>
+    </ion-header-bar>
+    <ion-content class="stable-bg has-expanded-header">
+      <ion-list class="list">
+
+      <ion-item class="item" menu-close href="#/app/checklist">
+      <i class="fa fa-1x fa-puzzle-piece" aria-hidden="true"></i><span style="padding-left: 10px;">Checklist</span>
+      </ion-item>
+
+      <ion-item class="item" menu-close href="#/app/settings">
+      <i class="fa fa-1x fa-rss" aria-hidden="true"></i><span style="padding-left: 10px;">Settings</span>
+      </ion-item>
+
+      <ion-item class="item" menu-close  href="#/app/news">
+      <i class="fa fa-1x fa-reply" aria-hidden="true"></i><span style="padding-left: 10px;">Logout</span>
+      </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

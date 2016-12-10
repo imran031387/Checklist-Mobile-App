@@ -1,0 +1,32 @@
+
+
+
+<ion-view view-title="Checklist" class="bar-dark" style="background: #CBEAF7">
+  <ion-header-bar class="bar bar-header bar-dark">
+    <span style="width: 100%;text-align: center;padding: 10px 0 0 0;font-weight: bold;">Login</span>
+  </ion-header-bar>
+  <ion-content style="background: url(./img/background-2.jpeg) center; background-size: cover;">
+    <!--======================================================-->
+    <section id="login">
+      <div class="list">
+        <div class = "col header text-center">
+          <img style="width: 150px;border-radius: 150px;margin: 50px 0 0 0;" src="./img/avatar-21.gif" class = "logo" />
+        </div>
+        <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="username"></ion-md-input>
+        <ion-md-input placeholder="Password" highlight-color="energized" type="password" ng-model="password"></ion-md-input>
+        <div class="padding">
+          <button ng-click="loggedIn(username, password)" class="button button-block button-positive">
+            Login
+          </button>
+          <button ng-click="memberRegister()" class="button button-block button-positive">
+            Register
+          </button>
+        </div>
+      </div>
+    </section>
+    <!--======================================================-->
+  </ion-content>
+  <ion-footer-bar class="bar-dark">
+    <span style="width: 100%;text-align: center;padding: 10px 0 0 0;font-size: 10px">Copyright 2016</span>
+  </ion-footer-bar>
+</ion-view>

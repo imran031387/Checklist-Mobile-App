@@ -1,0 +1,40 @@
+/* Empty. Add your own CSS if you like */
+#login .item{
+    border-color: ivory;
+}
+#side-menu h1{
+    left: 35px !important;
+}
+
+#login .item, #register .item {
+    margin: 0 0 0 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#login .item .input-label, #register .item .input-label{
+    padding: 0px 0 0 10px;
+    opacity: 2.5;
+}
+
+.bar-assertive-900 {
+    background-color: rgb(85, 64, 94);
+}
+
+.stable-bg, .stable-bg:hover {
+    background-color: rgb(228, 210, 218);
+}
+
+.item {
+    color: #000;
+    font-size: 15px;
+}
+
+ion-header-bar .title {
+    left: 0 !important;
+    text-align: center !important;
+}
+
+ion-side-menu .list .item{
+    border-bottom: 1px solid #974664;
+}
