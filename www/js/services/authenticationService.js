@@ -1,6 +1,6 @@
 'use strict';
 
-gurdian.factory('authService',function ($http, $q, $window, authToken) {
+gurdian.factory('authService',function ($http, $q, $window, authToken, $firebase, $firebaseAuth, $ionicLoading) {
 
     var authServiceFactory = {};
 

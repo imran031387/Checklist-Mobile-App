@@ -15,7 +15,7 @@
         <ion-md-input placeholder="Confirm Password" highlight-color="energized" type="password" ng-model="regconfirmpassword"></ion-md-input>
         <div class="padding">
           <button ng-click="userRegister(regusername, regpassword, regconfirmpassword)" class="button button-block button-positive">
-            Create Account
+            Create Account <ion-spinner ng-show="loading" style="position: absolute;margin: 7px 0 0 10px" icon="lines"></ion-spinner>
           </button>
         </div>
       </div>

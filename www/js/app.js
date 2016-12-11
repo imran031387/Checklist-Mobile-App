@@ -65,15 +65,6 @@ gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location) {
               }
           }
       })
-      .state('app.logout', {
-          url: '/logout',
-          views: {
-              'menuContent': {
-                  templateUrl: 'templates/logout.html',
-                  controller: 'LogoutCtrl'
-              }
-          }
-      })
       .state('app.checklist', {
         url: '/checklist',
         views: {

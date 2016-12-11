@@ -16,7 +16,7 @@
         <ion-md-input placeholder="Password" highlight-color="energized" type="password" ng-model="password"></ion-md-input>
         <div class="padding">
           <button ng-click="loggedIn(username, password)" class="button button-block button-positive">
-            Login
+            Login <ion-spinner ng-show="loading" style="position: absolute;margin: 7px 0 0 10px" icon="lines"></ion-spinner>
           </button>
           <button ng-click="memberRegister()" class="button button-block button-positive">
             Register
