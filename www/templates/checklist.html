@@ -42,9 +42,12 @@
 
       <!--======================================================-->
     </section>
+    <button class="button" ng-click="add()">Add notification</button>
+    <button class="button" ng-click="isScheduled()">Is Scheduled</button>
   </ion-content>
-  <button id="fab" class="button button-energized-900 button-fab button-fab-bottom-right pane activated">
+  <button id="fab" ng-click="modal.show()" class="button button-energized-900 button-fab button-fab-bottom-right pane activated">
     <i class="icon ion-plus"></i>
   </button>
 </ion-view>
+
 

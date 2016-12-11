@@ -37,9 +37,31 @@
     <script src="js/services/authenticationService.js"> </script>
 
     <script src="lib/angularfire/dist/angularfire.min.js"></script>
+
   </head>
 
   <body ng-app="gurdian">
     <ion-nav-view></ion-nav-view>
   </body>
+
+  <!--modal for creating tasks-->
+  <script id="modal-task.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar bar-header modal-header">
+        <h1 class="title">Task</h1>
+        <button id="modal-cancel" class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+      </ion-header-bar>
+      <ion-content class="padding">
+        <div class="list">
+          <label class="item item-input" style="border: 1px solid #ddd">
+            <input ng-model="title" type="text" placeholder="Title">
+          </label>
+          <label class="item item-input" style="border: 1px solid #ddd">
+            <input ng-model="description" type="text" placeholder="Description">
+          </label>
+          <button class="button button-full button-positive" ng-click="add(title,description)">Create</button>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </html>

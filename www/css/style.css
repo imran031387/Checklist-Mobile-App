@@ -45,5 +45,25 @@ ion-side-menu .list .item, ion-side-menu ion-footer-bar .item{
 #settings .item{
     font-weight: 500;
     border-bottom: 1px solid rgba(185, 185, 185, 0.37);
+}
 
+button#modal-cancel{
+    z-index: 1;
+    padding: 0 8px;
+    /* min-width: initial; */
+    min-height: 31px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 32px;
+    width: auto !important;
+    max-width: 100px;
+    border: 1px solid #452254;
+}
+.modal-header{
+    background-color: rgb(85, 64, 94);
+}
+
+.modal-header h1{
+    color: white;
+    right: 0px !important;
 }

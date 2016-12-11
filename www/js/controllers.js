@@ -122,4 +122,62 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl', function($scope, $stateParams, $state) {
   $state.go('app.settings');
+})
+.controller('ChecklistCtrl', function($scope, $stateParams, $state, $cordovaLocalNotification, $ionicModal) {
+    $scope.add = function(title,description) {
+        console.log(title + description);
+        var alarmTime = new Date();
+        alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+        $cordovaLocalNotification.schedule({
+            id: "1234",
+            date: alarmTime,
+            message: description,
+            title: title,
+        }).then(function () {
+            console.log("The notification has been set");
+            $scope.closeModal()
+        });
+    };
+
+    $scope.isScheduled = function() {
+        $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
+            alert("Notification 1234 Scheduled: " + isScheduled);
+        });
+    }
+
+    $scope.getAllScheduled = function () {
+        $cordovaLocalNotification.getAllScheduled().then(function(isScheduled) {
+            alert("Notification 1234 Scheduled: " + isScheduled);
+        });
+    }
+
+
+    $ionicModal.fromTemplateUrl('modal-task.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function() {
+        $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+        $scope.modal.hide();
+    };
+    // Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+        $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function() {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+        // Execute action
+    });
+
+
+
+
 });

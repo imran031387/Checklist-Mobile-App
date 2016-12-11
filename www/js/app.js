@@ -4,6 +4,7 @@ var gurdian = angular.module('gurdian', ['ionic', 'ionic-material', 'ionMdInput'
 
 gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location) {
   $ionicPlatform.ready(function() {
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -69,7 +70,8 @@ gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location) {
         url: '/checklist',
         views: {
           'menuContent': {
-            templateUrl: 'templates/checklist.html'
+            templateUrl: 'templates/checklist.html',
+            controller: 'ChecklistCtrl'
           }
         }
       })
