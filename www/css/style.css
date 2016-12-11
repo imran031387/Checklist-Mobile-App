@@ -22,7 +22,8 @@
 }
 
 .stable-bg, .stable-bg:hover {
-    background-color: rgb(228, 210, 218);
+    /*background-color: rgb(228, 210, 218);*/
+    background-color: rgb(255, 255, 255)
 }
 
 .item {
@@ -35,6 +36,14 @@ ion-header-bar .title {
     text-align: center !important;
 }
 
-ion-side-menu .list .item{
-    border-bottom: 1px solid #974664;
+ion-side-menu .list .item, ion-side-menu ion-footer-bar .item{
+    border-bottom: 2px solid #6d233e;
+    background: #9d4765;
+    border-left: 7px solid #823b5c;
+}
+
+#settings .item{
+    font-weight: 500;
+    border-bottom: 1px solid rgba(185, 185, 185, 0.37);
+
 }

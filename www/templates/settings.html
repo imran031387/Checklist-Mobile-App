@@ -2,17 +2,46 @@
   <ion-content>
     <section>
       <!--======================================================-->
-      <ul class="list">
+      <ul class="list" id="settings">
         <li class="item item-toggle">
           SOS Notifications
-          <label class="toggle toggle-assertive">
+          <label class="toggle toggle-balanced">
             <input type="checkbox">
             <div class="track">
               <div class="handle"></div>
             </div>
           </label>
         </li>
+
+        <li class="item">
+          SOS Primary Contact
+          <label>
+            <input type="text" placeholder="Contact Number">
+          </label>
+        </li>
+
+        <li class="item" >
+          SOS Notifications Interval <div style="font-weight: bold"> {{rangeValueInterval}} Hours</div>
+          <div class = "range">
+            <input type="range" name="interval" min="0" max="24" ng-model="rangeValueInterval" ng-change="drag(rangeValue)">
+          </div>
+        </li>
+
+        <li class="item">
+          SOS Notifications Delay<div style="font-weight: bold"> {{rangeValueDelay}} Hours</div>
+          <div class = "range">
+            <input type="range" name="delay" min="0" max="24" ng-model="rangeValueDelay" ng-change="drag(rangeValue)">
+          </div>
+        </li>
+
+        <li class="item" style="border: none;">
+          <button ng-click="saveSettings()" class="button button-block button-positive">
+            Save
+          </button>
+        </li>
+
       </ul>
+
       <!--======================================================-->
     </section>
   </ion-content>
