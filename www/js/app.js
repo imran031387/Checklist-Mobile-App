@@ -62,7 +62,8 @@ gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location) {
           url: '/settings',
           views: {
               'menuContent': {
-                  templateUrl: 'templates/settings.html'
+                  templateUrl: 'templates/settings.html',
+                  controller: 'SettingsCtrl'
               }
           }
       })

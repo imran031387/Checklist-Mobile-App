@@ -1,52 +1,27 @@
 <ion-view view-title="Checklist" class="bar-dark">
   <ion-content>
-    <section>
       <!--======================================================-->
-
+      <ion-refresher
+              pulling-text="Pull to refresh..."
+              on-refresh="getAllScheduled()">
+      </ion-refresher>
       <ion-list class="">
-        <ion-item>
-          <a ui-sref="app.friends" class="item item-avatar item-icon-left" href="#/app/friends" style="transition-delay: 0.32s;">
-            <i class="icon ion-speakerphone muted"></i>
-            <h2>Jon Snow</h2>
-            <p>Da illest illegitimate</p>
-
-          </a>
-        </ion-item>
-
-        <ion-item>
-          <a ui-sref="app.friends" class="item item-avatar item-icon-left" href="#/app/friends" style="transition-delay: 0.32s;">
-            <i class="icon ion-speakerphone muted"></i>
-            <h2>Jon Snow</h2>
-            <p>Da illest illegitimate</p>
-          </a>
-        </ion-item>
-
-        <ion-item>
-          <a ui-sref="app.friends" class="item item-avatar item-icon-left" href="#/app/friends" style="transition-delay: 0.32s;">
-            <i class="icon ion-speakerphone muted"></i>
-            <h2>Jon Snow</h2>
-            <p>Da illest illegitimate</p>
-
-          </a>
-        </ion-item>
-
-        <ion-item>
-          <a ui-sref="app.friends" class="item item-avatar item-icon-left" href="#/app/friends" style="transition-delay: 0.32s;">
-            <i class="icon ion-speakerphone muted"></i>
-            <h2>Jon Snow</h2>
-            <p>Da illest illegitimate</p>
-            <i class="icon ion-speakerphone muted"></i>
-          </a>
-        </ion-item>
+          <ion-item ng-repeat="task in tasks">
+            <div class="item item-avatar item-icon-left" style="transition-delay: 0.32s;border: 1px solid #ddd">
+              <i class="icon ion-speakerphone"></i>
+              <h2>{{task.title}}</h2>
+              <p>{{task.text}}</p>
+              <a ng-click="cancelSchedule(task.id)"><i class="icon ion-android-cancel" style="left: 90% !important;color: red"></i></a>
+            </div>
+          </ion-item>
       </ion-list>
-
       <!--======================================================-->
-    </section>
-    <button class="button" ng-click="add()">Add notification</button>
-    <button class="button" ng-click="isScheduled()">Is Scheduled</button>
   </ion-content>
   <button id="fab" ng-click="modal.show()" class="button button-energized-900 button-fab button-fab-bottom-right pane activated">
     <i class="icon ion-plus"></i>
+  </button>
+  <button id="fab" ng-click="getAllScheduled()" class="button button-energized-900 button-fab button-fab-bottom-left pane activated">
+    <i class="icon ion-refresh"></i>
   </button>
 </ion-view>
 

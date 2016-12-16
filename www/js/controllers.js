@@ -1,9 +1,9 @@
 angular.module('starter.controllers', [])
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, authToken) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, authToken, settingService) {
     // logout functionality for the app
   $scope.logout = function () {
-      console.log('logout triggered baby');
       authToken.removeToken();
+      settingService.removeSettings();
       $state.go('login');
 
   }
@@ -120,35 +120,85 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('SettingsCtrl', function($scope, $stateParams, $state) {
-  $state.go('app.settings');
+.controller('SettingsCtrl', function($scope, $stateParams, $state, settingService) {
+  var settings = JSON.parse(settingService.getSettings());
+    if(settings){
+        $scope.notificationStatus = settings.notificationStatus;
+        $scope.contactNumber = settings.contactNumber;
+        $scope.rangeValueInterval = settings.rangeValueInterval;
+        $scope.rangeValueDelay = settings.rangeValueDelay;
+    }
+
+    $scope.saveSettings = function (notificationStatus, contactNumber, rangeValueInterval, rangeValueDelay) {
+      settingService.setSettings(notificationStatus, contactNumber, rangeValueInterval, rangeValueDelay);
+  }
+
+    //$state.go('app.settings');
 })
-.controller('ChecklistCtrl', function($scope, $stateParams, $state, $cordovaLocalNotification, $ionicModal) {
+.controller('ChecklistCtrl', function($scope, $rootScope, $stateParams, $state, $cordovaLocalNotification, $ionicModal, $ionicPopup, $timeout, authToken, settingService) {
+
+    $rootScope.$on('$cordovaLocalNotification:trigger',
+        function (event, notification, state) {
+            var delay = JSON.parse(settingService.getSettings()).rangeValueDelay;
+            $timeout(function() {
+                if(authToken.getPrimaryFlag(notification.id) == false){
+                     alert('triggered a email with no response');
+                }
+            },delay*60*1000);// (1*60*1000) 1min delay.
+        });
+
+    $rootScope.$on('$cordovaLocalNotification:click',
+        function (event, notification, state) {
+            authToken.setPrimaryFlag(notification.id,'true');
+            $scope.getAllScheduled()
+            console.log("notification clicked so it's broadcast.");
+        });
+
+
     $scope.add = function(title,description) {
-        console.log(title + description);
-        var alarmTime = new Date();
-        alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+        var interval = JSON.parse(settingService.getSettings()).rangeValueInterval;
+        var id = Math.floor(Math.random() * (10000-1000+1)) + 1000;
+        var now = new Date().getTime();
+        var alarmTime = new Date(now + interval * 60 * 1000);
         $cordovaLocalNotification.schedule({
-            id: "1234",
-            date: alarmTime,
-            message: description,
+            id: id,
+            at: alarmTime,
+            text: description,
             title: title,
         }).then(function () {
-            console.log("The notification has been set");
+            console.log("The notification has been set:ID" + id);
+            authToken.setPrimaryFlag(id,'false')
+            $scope.getAllScheduled()
             $scope.closeModal()
         });
     };
 
-    $scope.isScheduled = function() {
-        $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
-            alert("Notification 1234 Scheduled: " + isScheduled);
+    $scope.getAllScheduled = function () {
+        $cordovaLocalNotification.getAllScheduled().then(function(data) {
+            $scope.tasks = data;
+            $scope.$broadcast('scroll.refreshComplete');
         });
     }
 
-    $scope.getAllScheduled = function () {
-        $cordovaLocalNotification.getAllScheduled().then(function(isScheduled) {
-            alert("Notification 1234 Scheduled: " + isScheduled);
+    $scope.cancelSchedule = function (id) {
+        var confirmPopup = $ionicPopup.alert({
+            title: 'Are you Sure!',
+            template: 'Do you want to cancel the Task?',
+            buttons: [
+                { text: 'No', onTap: function(e) { return false; } },
+                { text: 'Yes', type: 'button-positive',onTap: function(e) { return  true; }},
+            ]
         });
+        confirmPopup.then(function(res) {
+            if(res) {
+                console.log(res);
+                $cordovaLocalNotification.cancel(id).then(function(data) {
+                    console.log('deleted');
+                    $scope.getAllScheduled()
+                });
+            }
+        });
+
     }
 
 
