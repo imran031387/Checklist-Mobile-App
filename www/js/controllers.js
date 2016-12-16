@@ -135,15 +135,18 @@ angular.module('starter.controllers', [])
 
     //$state.go('app.settings');
 })
-.controller('ChecklistCtrl', function($scope, $rootScope, $stateParams, $state, $cordovaLocalNotification, $ionicModal, $ionicPopup, $timeout, authToken, settingService) {
+.controller('ChecklistCtrl', function($scope, $rootScope, $stateParams, $state, $cordovaLocalNotification, $ionicModal, $ionicPopup, $timeout, authToken, settingService, emailService) {
 
     $rootScope.$on('$cordovaLocalNotification:trigger',
         function (event, notification, state) {
             var delay = JSON.parse(settingService.getSettings()).rangeValueDelay;
+            var email = JSON.parse(settingService.getSettings()).contactNumber;
+            var name = 'User';
+            var title = notification.title;
+            var description = notification.text;
             $timeout(function() {
-                if(authToken.getPrimaryFlag(notification.id) == false){
-                     alert('triggered a email with no response');
-                }
+                $scope.email(name, email, title, description)
+                alert('triggered a email');
             },delay*60*1000);// (1*60*1000) 1min delay.
         });
 
@@ -153,6 +156,10 @@ angular.module('starter.controllers', [])
             $scope.getAllScheduled()
             console.log("notification clicked so it's broadcast.");
         });
+
+    $scope.email = function(name, email, title, description){
+        emailService.send(name, email, title, description);
+    }
 
 
     $scope.add = function(title,description) {
