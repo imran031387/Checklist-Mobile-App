@@ -154,16 +154,15 @@ angular.module('starter.controllers', [])
 
 
             // Getting the current location.
-            var posOptions = {timeout: 10000, enableHighAccuracy: true};
+            var posOptions = {timeout: 10000, maximumAge: 3600000, enableHighAccuracy: true};
             $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-                $scope.lat  = position.coords.latitude
-                $scope.long = position.coords.longitude
+                $rootScope.lat  = position.coords.latitude
+                $rootScope.long = position.coords.longitude
                 }, function(err) {
-                    // error
                 });
 
             $timeout(function() {
-                $scope.email(name, email, title, description, $scope.lat, $scope.long)
+                $scope.email(name, email, title, description, $rootScope.lat, $rootScope.long)
                 // alert("Email Send Successfully:"+$scope.lat+" "+$scope.long);
             },delay*60*1000);// (1*60*1000) 1min delay.
         });

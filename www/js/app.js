@@ -2,7 +2,7 @@
 // var db = null;
 var gurdian = angular.module('gurdian', ['ionic', 'ionic-material', 'ionMdInput', 'firebase', 'ngCordova', 'starter.controllers']);
 
-gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location) {
+gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location, $cordovaGeolocation) {
   $ionicPlatform.ready(function() {
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -16,6 +16,19 @@ gurdian.run(function($ionicPlatform, $cordovaSQLite, $rootScope, $location) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+      var watchOptions = {
+          maximumAge: 3600000,
+          timeout : 3000,
+          enableHighAccuracy: false // may cause errors if true
+      };
+
+      $cordovaGeolocation.watchPosition(watchOptions).then(null, function(err) {
+              // error
+          }, function(position) {
+          $rootScope.lat  = position.coords.latitude
+          $rootScope.long = position.coords.longitude
+          });
 
 
       // db = $cordovaSQLite.openDB({name:"gurdian.db", location:'default'});
