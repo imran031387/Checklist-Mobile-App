@@ -4,14 +4,14 @@ gurdian.factory('emailService',function ($http, $q) {
 
     var emailServiceFactory = {};
 
-    emailServiceFactory.send = function(name, email, title, description){
+    emailServiceFactory.send = function(name, email, title, description, lat, long){
         $http({
             method: 'POST',
             url: 'http://mimemessage.cagaidea.com/',
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: { name: name, email: email, title:title, description:description }
+            data: { name: name, email: email, title:title, description:description, lat:lat, long:long }
         }).then(function successCallback(response) {
             console.log(JSON.stringify(response));
         }, function errorCallback(response) {

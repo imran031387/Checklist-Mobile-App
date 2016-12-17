@@ -135,7 +135,7 @@ angular.module('starter.controllers', [])
 
     //$state.go('app.settings');
 })
-.controller('ChecklistCtrl', function($scope, $rootScope, $stateParams, $state, $cordovaLocalNotification, $ionicModal, $ionicPopup, $timeout, authToken, settingService, emailService) {
+.controller('ChecklistCtrl', function($scope, $rootScope, $stateParams, $state, $cordovaGeolocation, $cordovaLocalNotification, $ionicModal, $ionicPopup, $timeout, authToken, settingService, emailService) {
 
     $rootScope.$on('$cordovaLocalNotification:trigger',
         function (event, notification, state) {
@@ -144,9 +144,20 @@ angular.module('starter.controllers', [])
             var name = 'User';
             var title = notification.title;
             var description = notification.text;
+
+
+            // Getting the current location.
+            var posOptions = {timeout: 10000, enableHighAccuracy: false};
+            $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+                $scope.lat  = position.coords.latitude
+                $scope.long = position.coords.longitude
+                }, function(err) {
+                    // error
+                });
+
             $timeout(function() {
-                $scope.email(name, email, title, description)
-                alert('triggered a email');
+                $scope.email(name, email, title, description, $scope.lat, $scope.long)
+                alert("Email Send Successfully");
             },delay*60*1000);// (1*60*1000) 1min delay.
         });
 
