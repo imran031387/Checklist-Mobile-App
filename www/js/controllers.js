@@ -157,19 +157,17 @@ angular.module('starter.controllers', [])
 
             $timeout(function() {
                 $scope.email(name, email, title, description, $scope.lat, $scope.long)
-                alert("Email Send Successfully");
+                // alert("Email Send Successfully:"+$scope.lat+" "+$scope.long);
             },delay*60*1000);// (1*60*1000) 1min delay.
         });
 
     $rootScope.$on('$cordovaLocalNotification:click',
         function (event, notification, state) {
-            authToken.setPrimaryFlag(notification.id,'true');
-            $scope.getAllScheduled()
-            console.log("notification clicked so it's broadcast.");
+            $scope.ok(notification)
         });
 
-    $scope.email = function(name, email, title, description){
-        emailService.send(name, email, title, description);
+    $scope.email = function(name, email, title, description, lat, long){
+        emailService.send(name, email, title, description, lat, long);
     }
 
 
@@ -214,6 +212,25 @@ angular.module('starter.controllers', [])
                     console.log('deleted');
                     $scope.getAllScheduled()
                 });
+            }
+        });
+
+    }
+    // Trigger this function when user clicks the local notification.
+    $scope.ok = function (notification) {
+        var confirmPopup = $ionicPopup.alert({
+            title: 'Are you OK?',
+            template: 'Please ensure that you are OK by clicking this popup.',
+            buttons: [
+                { text: 'Yes', type: 'button-positive',onTap: function(e) { return  true; }},
+            ]
+        });
+        confirmPopup.then(function(res) {
+            if(res) {
+                console.log(res);
+                authToken.setPrimaryFlag(notification.id,'true');
+                $scope.getAllScheduled()
+                console.log("notification clicked so it's broadcast.");
             }
         });
 
