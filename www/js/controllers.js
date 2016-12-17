@@ -120,7 +120,8 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('SettingsCtrl', function($scope, $stateParams, $state, settingService) {
+.controller('SettingsCtrl', function($scope, $stateParams, $state, settingService, $cordovaToast) {
+
   var settings = JSON.parse(settingService.getSettings());
     if(settings){
         $scope.notificationStatus = settings.notificationStatus;
@@ -131,9 +132,15 @@ angular.module('starter.controllers', [])
 
     $scope.saveSettings = function (notificationStatus, contactNumber, rangeValueInterval, rangeValueDelay) {
       settingService.setSettings(notificationStatus, contactNumber, rangeValueInterval, rangeValueDelay);
+        $cordovaToast.show('Settings Saved!', 'short', 'bottom').then(function(success) {
+            // console.log("The toast was shown");
+        }, function (error) {
+            // console.log("The toast was not shown due to " + error);
+        });
+        //$state.go('app.settings');
   }
 
-    //$state.go('app.settings');
+
 })
 .controller('ChecklistCtrl', function($scope, $rootScope, $stateParams, $state, $cordovaGeolocation, $cordovaLocalNotification, $ionicModal, $ionicPopup, $timeout, authToken, settingService, emailService) {
 
@@ -147,7 +154,7 @@ angular.module('starter.controllers', [])
 
 
             // Getting the current location.
-            var posOptions = {timeout: 10000, enableHighAccuracy: false};
+            var posOptions = {timeout: 10000, enableHighAccuracy: true};
             $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
                 $scope.lat  = position.coords.latitude
                 $scope.long = position.coords.longitude
